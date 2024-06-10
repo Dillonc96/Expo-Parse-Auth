@@ -1,0 +1,29 @@
+
+{
+  "expo": {
+    "name": "EquiClient",
+    "slug": "expo-parse-auth",
+    "userInterfaceStyle": "automatic",
+    "extra": {
+      "eas": {
+        "projectId": "d9389dbb-fbe5-4799-b303-ca7ed738c5c0"
+      }
+    },
+    "android": {
+      "package": "com.dillonc96.expoparseauth",
+      "userInterfaceStyle": "automatic"
+    },
+    "ios": {
+      "bundleIdentifier": "com.dillonc96.expoparseauth",
+      "userInterfaceStyle": "automatic"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "splash": {
+      "image": "assets/images/EC-splash-FFD800.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    }
+  }
+}
