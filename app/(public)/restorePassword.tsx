@@ -5,6 +5,7 @@ import { Alert, Button } from 'react-native';
 import Styles from '@/components/UniversalStyles';
 import { router } from 'expo-router';
 import handleServerError from '@/functions/ServerErrorAlert';
+import Parse from 'parse/react-native';
 
 export default function restorePassword() {
 
@@ -14,6 +15,7 @@ export default function restorePassword() {
 
   const doUserPasswordReset = async function () {
     // Reset password
+    console.log("resetting password");
     const resetPassword = async ({ email }: { email: string }) => {
       try {
         const result = await Parse.Cloud.run("resetPassword", { email });
@@ -31,8 +33,8 @@ export default function restorePassword() {
           "Success!",
           `Please check ${email} to proceed with password reset.`
         );
-        // Redirect user to your login screen
-        router.push("/index");
+        // Redirect user to top of stack
+        router.push("/");
         console.log(result);
 
         return result;
@@ -60,11 +62,12 @@ export default function restorePassword() {
               placeholder="email"
               autoCapitalize = "none"
               autoFocus = {true}     
-              returnKeyType = "next"  
+              returnKeyType = "next" 
+              onChangeText={(text) => setEmail(text)} 
               //onSubmitEditing={() => secondTextInputRef.current.focus()}
             />
             <View style={{paddingVertical:20}}>
-            <Button title="Submit" onPress={() => console.log("Submit Pressed")}/>
+            <Button title="Submit" onPress={() => doUserPasswordReset()}/>
             </View>
         </View>
     </SafeAreaView>
