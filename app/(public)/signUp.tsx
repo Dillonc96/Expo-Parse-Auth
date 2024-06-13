@@ -10,11 +10,10 @@ import {useRouter} from "expo-router";
 import { MonoText, WarningText } from "@/components/StyledText";
 import Styles from "@/components/UniversalStyles";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//const pwdRegex =
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //email regex pattern 
+
 function validatePassword(password: string) {
-  const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+  const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/; //alphanumeric, upperand lowercases, 8 characters
   return pwdRegex.test(password);
 }
 

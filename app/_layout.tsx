@@ -8,14 +8,45 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
-//import Parse from "parse/react-native";
-//import {Keys} from "../constants/Keys";
+import parse from "parse/react-native";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import AuthProvider from "@/context/AuthProvider";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
 
+async function getUserObject() {
+  const user = await customStorage.getItem("user");
+  const userObject = JSON.parse(user as string);
+  return userObject;
+}
+const user = getUserObject();
+console.log("user: ", user);
+console.log("user session token: ", user?.sessionToken);
+//set up expo-notifications
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+import customStorage from "@/functions/CustomStorage";
 
+async function registerForPushNotificationsAsync() {
+  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  let finalStatus = status;
+
+  if (status !== 'granted') {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    finalStatus = status;
+  }
+
+  if (finalStatus !== 'granted') {
+    alert('Failed to get push token for push notification!');
+    return;
+  } else {
+    const token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log("expo token: ",token);
+    // Save the token to your backend server or database
+    //create parse cloud code to update the user with the token
+    const recordToken = parse.Cloud.run('recordToken', { token: token, sessionToken: user?.sessionToken });
+  }
+
+}
 
 export {
   // Catch any errors thrown by the Layout component.
